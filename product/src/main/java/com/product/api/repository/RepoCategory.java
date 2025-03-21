@@ -1,4 +1,4 @@
-package com.customer.api.repository;
+package com.product.api.repository;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.customer.api.entity.Category;
+import com.product.api.entity.Category;
 
 
 @Repository

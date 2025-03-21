@@ -1,4 +1,4 @@
-package com.customer;
+package com.product;
 
 import java.util.ArrayList;
 import java.util.List;
