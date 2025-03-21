@@ -9,15 +9,12 @@ public class Category {
 	
 	@Id
 	private Integer category_id;
-	
 	private String category;
 	private String tag;
 	private Integer status;
 	
 	public Category() {
-		
 	}
-	
 	public Category(Integer category_id, String category, String tag, Integer status) {
 		super();
 		this.category_id = category_id;
@@ -49,12 +46,13 @@ public class Category {
 	public void setTag(String tag) {
 		this.tag = tag;
 	}
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 
 	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
+	
 }
