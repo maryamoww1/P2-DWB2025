@@ -15,6 +15,12 @@ import com.product.common.ApiResponse;
 import com.product.exception.ApiException;
 import com.product.exception.DBAccessException;
 
+
+/**
+ * Implementación del servicio que gestiona las operaciones CRUD para las categorías.
+ * Esta clase maneja todas las operaciones relacionadas con categorías, incluyendo
+ * consultas, creación, actualización y cambios de estado.
+ */
 @Service
 public class SvcCategoryImp implements SvcCategory {
 	
