@@ -1,4 +1,4 @@
-package com.customer.exception;
+package com.product.exception;
 
 import org.springframework.dao.DataAccessException;
 
