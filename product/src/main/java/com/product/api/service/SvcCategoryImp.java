@@ -1,4 +1,4 @@
-package com.customer.api.service;
+package com.product.api.service;
 
 import java.util.List;
 
@@ -8,10 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.customer.api.entity.Category;
-import com.customer.api.repository.RepoCategory;
-import com.customer.exception.ApiException;
-import com.customer.exception.DBAccessException;
+import com.product.api.entity.Category;
+import com.product.api.repository.RepoCategory;
+import com.product.exception.ApiException;
+import com.product.exception.DBAccessException;
 
 
 @Service

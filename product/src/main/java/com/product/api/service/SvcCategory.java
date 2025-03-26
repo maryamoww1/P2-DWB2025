@@ -1,9 +1,9 @@
-package com.customer.api.service;
+package com.product.api.service;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
-import com.customer.api.entity.Category;
+import com.product.api.entity.Category;
 
 
 public interface SvcCategory {
