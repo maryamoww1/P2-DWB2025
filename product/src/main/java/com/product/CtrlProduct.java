@@ -7,14 +7,22 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controlador REST para la gestión de categorías de productos.
+ * Proporciona un endpoint para obtener la lista de categorías.
+ */
 @RestController
 @RequestMapping("/category")
 public class CtrlProduct {
 
-    //Metodo para obtener la lista de categories
+    /**
+     * Método para obtener la lista de categorías disponibles.
+     * 
+     * @return Lista de objetos de tipo Category.
+     */
     @GetMapping
     public List<Category> getCategories() {
-        //creamos las categorias en tiempo de ejecucion
+        // Creación de categorías en tiempo de ejecución
         List<Category> categories = new ArrayList<>();
         categories.add(new Category(1, "Lentes", "Lts", 1));
         categories.add(new Category(2, "Relojes", "Rljs", 1));
@@ -22,4 +30,3 @@ public class CtrlProduct {
         return categories;
     }
 }
-	
