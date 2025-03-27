@@ -1,12 +1,14 @@
-package com.customer.api.service;
-import com.customer.api.entity.Category;
-
+package com.product.api.service;
 import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+
+import com.product.api.entity.Category;
 
 
 public interface SvcCategory {
 
-	public List<Category> getCategories();
+	public ResponseEntity<List<Category>> getCategories();
 	public List<Category> getActiveCategories();
 	public Category getCategory(Integer id);
 }

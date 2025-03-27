@@ -1,12 +1,17 @@
-package com.customer.api.service;
+package com.product.api.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.customer.api.repository.RepoCategory;
-import com.customer.api.entity.Category;
+import com.product.api.entity.Category;
+import com.product.api.repository.RepoCategory;
+import com.product.exception.ApiException;
+import com.product.exception.DBAccessException;
 
 
 @Service
@@ -16,8 +21,8 @@ public class SvcCategoryImp implements SvcCategory {
 	RepoCategory repo;
 
 	@Override
-	public List<Category> getCategories() {
-		return repo.getCategories();
+	public ResponseEntity<List<Category>> getCategories() {
+		return new ResponseEntity<>(repo.getCategories(), HttpStatus.OK);	
 	}
 
 	@Override
@@ -30,12 +35,11 @@ public class SvcCategoryImp implements SvcCategory {
 		try {
 			Category category = repo.getCategory(id);
 			if(category == null) {
-				throw new Exception("No existe la categoría");
+				throw new ApiException(HttpStatus.NOT_FOUND, "No existe esa categoría");
 			}
 			return category;
-		}catch (Exception e) {
-			System.out.println(e.getLocalizedMessage());
-			return null;
+		}catch (DataAccessException e) {
+			throw new DBAccessException(e);
 		}
 	}
 }
