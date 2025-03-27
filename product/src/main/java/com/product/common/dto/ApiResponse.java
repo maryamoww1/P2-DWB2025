@@ -6,20 +6,34 @@ package com.product.common.dto;
  */
 public class ApiResponse {
 
-	private String message;
+    /** Mensaje de respuesta de la API. */
+    private String message;
 
-	public ApiResponse(String message) {
-		super();
-		this.message = message;
-	}
+    /**
+     * Constructor que inicializa la respuesta con un mensaje específico.
+     * 
+     * @param message Mensaje de la respuesta.
+     */
+    public ApiResponse(String message) {
+        super();
+        this.message = message;
+    }
 
-	public String getMessage() {
-		return message;
-	}
+    /**
+     * Obtiene el mensaje de la respuesta.
+     * 
+     * @return Mensaje de la respuesta.
+     */
+    public String getMessage() {
+        return message;
+    }
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
-	
+    /**
+     * Establece el mensaje de la respuesta.
+     * 
+     * @param message Nuevo mensaje de la respuesta.
+     */
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }

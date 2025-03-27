@@ -16,19 +16,30 @@ import com.product.exception.ApiException;
 
 import jakarta.validation.Valid;
 
+/**
+ * Controlador REST para la gestión de imágenes de productos.
+ * Proporciona un endpoint para la carga de imágenes asociadas a productos.
+ */
 @RestController
 @RequestMapping("/product-image")
 public class CtrlProductImage {
-	
-	@Autowired
-	SvcProductImage svc;
+    
+    /** Servicio para la gestión de imágenes de productos. */
+    @Autowired
+    SvcProductImage svc;
 
-	@PostMapping
+    /**
+     * Sube una imagen de producto.
+     * 
+     * @param in Datos de entrada de la imagen del producto.
+     * @param bindingResult Validación de la entrada.
+     * @return Respuesta de la API con el resultado de la operación.
+     */
+    @PostMapping
     public ResponseEntity<ApiResponse> createProductImage(@Valid @RequestBody DtoProductImageIn in, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-        	throw new ApiException(HttpStatus.BAD_REQUEST, bindingResult.getFieldError().getDefaultMessage());
+            throw new ApiException(HttpStatus.BAD_REQUEST, bindingResult.getFieldError().getDefaultMessage());
 
         return svc.uploadProductImage(in);
     }
-
 }

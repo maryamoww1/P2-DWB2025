@@ -24,47 +24,90 @@ import com.product.exception.ApiException;
 
 import jakarta.validation.Valid;
 
+/**
+ * Controlador REST para la gestión de productos.
+ * Proporciona endpoints para obtener, crear, actualizar y gestionar el estado de los productos.
+ */
 @RestController
 @RequestMapping("/product")
 public class CtrlProduct {
 
-	@Autowired
-	SvcProduct svc;
+    /** Servicio de productos. */
+    @Autowired
+    SvcProduct svc;
 
-	@GetMapping
-	public ResponseEntity<List<DtoProductListOut>> getProducts() {
-		return svc.getProducts();
-	}
+    /**
+     * Obtiene la lista de productos.
+     * 
+     * @return Lista de productos en formato de respuesta HTTP.
+     */
+    @GetMapping
+    public ResponseEntity<List<DtoProductListOut>> getProducts() {
+        return svc.getProducts();
+    }
 
-	@GetMapping("/{id}")
-	public ResponseEntity<DtoProductOut> getProduct(@PathVariable Integer id) {
-		return svc.getProduct(id);
-	}
+    /**
+     * Obtiene un producto específico según su ID.
+     * 
+     * @param id Identificador único del producto.
+     * @return Producto correspondiente al ID proporcionado en formato de respuesta HTTP.
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<DtoProductOut> getProduct(@PathVariable Integer id) {
+        return svc.getProduct(id);
+    }
 
-	@PostMapping
-	public ResponseEntity<ApiResponse> createProduct(@Valid @RequestBody DtoProductIn in, BindingResult bindingResult) {
-		if (bindingResult.hasErrors())
-			throw new ApiException(HttpStatus.BAD_REQUEST, bindingResult.getFieldError().getDefaultMessage());
+    /**
+     * Crea un nuevo producto.
+     * 
+     * @param in Datos de entrada del producto.
+     * @param bindingResult Validación de la entrada.
+     * @return Respuesta de la API con el resultado de la creación.
+     */
+    @PostMapping
+    public ResponseEntity<ApiResponse> createProduct(@Valid @RequestBody DtoProductIn in, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            throw new ApiException(HttpStatus.BAD_REQUEST, bindingResult.getFieldError().getDefaultMessage());
 
-		return svc.createProduct(in);
-	}
+        return svc.createProduct(in);
+    }
 
-	@PutMapping("/{id}")
-	public ResponseEntity<ApiResponse> updateProduct(@PathVariable Integer id, @Valid @RequestBody DtoProductIn in,
-			BindingResult bindingResult) {
-		if (bindingResult.hasErrors())
-			throw new ApiException(HttpStatus.BAD_REQUEST, bindingResult.getFieldError().getDefaultMessage());
+    /**
+     * Actualiza un producto existente.
+     * 
+     * @param id Identificador del producto.
+     * @param in Datos de entrada actualizados.
+     * @param bindingResult Validación de la entrada.
+     * @return Respuesta de la API con el resultado de la actualización.
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse> updateProduct(@PathVariable Integer id, @Valid @RequestBody DtoProductIn in,
+            BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            throw new ApiException(HttpStatus.BAD_REQUEST, bindingResult.getFieldError().getDefaultMessage());
 
-		return svc.updateProduct(id, in);
-	}
+        return svc.updateProduct(id, in);
+    }
 
-	@PatchMapping("/{id}/enable")
-	public ResponseEntity<ApiResponse> enableProduct(@PathVariable Integer id) {
-		return svc.enableProduct(id);
-	}
+    /**
+     * Habilita un producto por su ID.
+     * 
+     * @param id Identificador del producto a habilitar.
+     * @return Respuesta de la API con el resultado de la operación.
+     */
+    @PatchMapping("/{id}/enable")
+    public ResponseEntity<ApiResponse> enableProduct(@PathVariable Integer id) {
+        return svc.enableProduct(id);
+    }
 
-	@PatchMapping("/{id}/disable")
-	public ResponseEntity<ApiResponse> disableProduct(@PathVariable Integer id) {
-		return svc.disableProduct(id);
-	}
+    /**
+     * Deshabilita un producto por su ID.
+     * 
+     * @param id Identificador del producto a deshabilitar.
+     * @return Respuesta de la API con el resultado de la operación.
+     */
+    @PatchMapping("/{id}/disable")
+    public ResponseEntity<ApiResponse> disableProduct(@PathVariable Integer id) {
+        return svc.disableProduct(id);
+    }
 }

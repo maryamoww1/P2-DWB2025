@@ -10,36 +10,52 @@ import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+/**
+ * Controlador de excepciones global para la API.
+ * Maneja excepciones específicas de la aplicación y genera respuestas estructuradas.
+ */
 @ControllerAdvice
-public class RestExceptionHandler extends ResponseEntityExceptionHandler{
+public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
+    /**
+     * Maneja las excepciones de tipo ApiException y genera una respuesta estructurada.
+     * 
+     * @param exception Excepción capturada.
+     * @param request Objeto de la solicitud web.
+     * @return ResponseEntity con la estructura de excepción.
+     */
+    @ExceptionHandler(ApiException.class)
+    protected ResponseEntity<ExceptionResponse> handleApiException(ApiException exception, WebRequest request) {
+        ExceptionResponse response = new ExceptionResponse();
+        
+        response.setTimestamp(LocalDateTime.now());
+        response.setStatus(exception.getStatus().value());
+        response.setError(exception.getStatus());
+        response.setMessage(exception.getMessage());
+        response.setPath(((ServletWebRequest) request).getRequest().getRequestURI().toString());
+        
+        return new ResponseEntity<>(response, response.getError());
+    }
+    
+    /**
+     * Maneja las excepciones de tipo DBAccessException relacionadas con acceso a la base de datos.
+     * 
+     * @param exception Excepción capturada.
+     * @param request Objeto de la solicitud web.
+     * @return ResponseEntity con la estructura de excepción.
+     */
+    @ExceptionHandler(DBAccessException.class)
+    protected ResponseEntity<ExceptionResponse> handleDBAccessException(DBAccessException exception, WebRequest request) {
 
-	@ExceptionHandler(ApiException.class)
-	protected ResponseEntity<ExceptionResponse> handleApiException(ApiException exception, WebRequest request){
-		ExceptionResponse response = new ExceptionResponse();
-		
-		response.setTimestamp(LocalDateTime.now());
-		response.setStatus(exception.getStatus().value());
-		response.setError(exception.getStatus());
-		response.setMessage(exception.getMessage());
-		response.setPath(((ServletWebRequest)request).getRequest().getRequestURI().toString());
-		
-		return new ResponseEntity<>(response, response.getError());
-	}
-	
-	@ExceptionHandler(DBAccessException.class)
-	protected ResponseEntity<ExceptionResponse> DBAccessException(DBAccessException exception, WebRequest request){
-
-		System.out.println(exception.getException().getLocalizedMessage());
-		
-		ExceptionResponse response = new ExceptionResponse();
-		response.setTimestamp(LocalDateTime.now());
-		response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-		response.setError(HttpStatus.INTERNAL_SERVER_ERROR);
-		response.setMessage("Error al consultar la base de datos");
-		response.setPath(((ServletWebRequest)request).getRequest().getRequestURI().toString());
-		
-		return new ResponseEntity<>(response, response.getError());
-	}
+        System.out.println(exception.getException().getLocalizedMessage());
+        
+        ExceptionResponse response = new ExceptionResponse();
+        response.setTimestamp(LocalDateTime.now());
+        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        response.setError(HttpStatus.INTERNAL_SERVER_ERROR);
+        response.setMessage("Error al consultar la base de datos");
+        response.setPath(((ServletWebRequest) request).getRequest().getRequestURI().toString());
+        
+        return new ResponseEntity<>(response, response.getError());
+    }
 }
-
