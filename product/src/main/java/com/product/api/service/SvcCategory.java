@@ -17,4 +17,5 @@ public interface SvcCategory {
 	public ResponseEntity<ApiResponse> updateCategory(Integer id, DtoCategoryIn in);
 	public ResponseEntity<ApiResponse> enableCategory(Integer id);
 	public ResponseEntity<ApiResponse> disableCategory(Integer id);
+	
 }
