@@ -1,6 +1,6 @@
 package com.unam.dwb.auth.config.security;
 
-import com.unam.dwb.auth.config.jwt.JwtAuthFilter;
+import com.unam.dwb.auth.filter.JwtAuthFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -22,23 +22,26 @@ public class SecurityConfig {
 
         http
             .csrf().disable()
-            .cors() // usa tu CorsConfig
+            .cors()
             .and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeHttpRequests(auth -> auth
-                // Category (antes Region)
-                .requestMatchers(HttpMethod.GET, "/category/active").hasAnyAuthority("ADMIN", "PRODUCT")
-                .requestMatchers("/category/**").hasAuthority("ADMIN")
+                // Region
+                .requestMatchers(HttpMethod.GET, "/region/active").hasAnyAuthority("ADMIN", "PRODUCT")
+                .requestMatchers("/region/**").hasAuthority("ADMIN")
 
-                // Product
+                // Product (antes era Customer)
                 .requestMatchers(HttpMethod.GET, "/product/*").hasAnyAuthority("ADMIN", "PRODUCT")
                 .requestMatchers("/product/**").hasAuthority("ADMIN")
 
-                // Product images
+                // Product images (antes era Customer images)
                 .requestMatchers("/product-image/**").hasAnyAuthority("ADMIN", "PRODUCT")
 
-                // Por defecto, todo lo demás solo lo puede acceder ADMIN
+                // Categorías activas
+                .requestMatchers(HttpMethod.GET, "/category/active").hasAnyAuthority("ADMIN", "PRODUCT")
+
+                // Todo lo demás, acceso restringido a ADMIN
                 .anyRequest().hasAuthority("ADMIN")
             )
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
