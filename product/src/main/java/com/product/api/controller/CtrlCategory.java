@@ -21,6 +21,7 @@ import com.product.api.service.SvcCategory;
 import com.product.common.dto.ApiResponse;
 import com.product.exception.ApiException;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 /**
@@ -30,6 +31,7 @@ import jakarta.validation.Valid;
  */
 @RestController
 @RequestMapping("/category")
+@Tag(name = "Category", description = "Catálogo de categorías")
 public class CtrlCategory {
 
     /** Servicio de categorías. */
